@@ -1,7 +1,7 @@
 import { Plugin, Selection } from "prosemirror-state";
 import copy from "copy-to-clipboard";
 import { Decoration, DecorationSet } from "prosemirror-view";
-import { Node as ProsemirrorNode, NodeType } from "prosemirror-model";
+import { Node as ProsemirrorNode, NodeType, Mark, MarkType } from "prosemirror-model";
 import { textblockTypeInputRule } from "prosemirror-inputrules";
 import { MarkdownSerializerState } from "prosemirror-markdown";
 import backspaceToParagraph from "../commands/backspaceToParagraph";
@@ -22,10 +22,12 @@ export default class Heading extends Node {
     return {
       levels: [1, 2, 3, 4],
       collapsed: undefined,
+      color:undefined
     };
   }
 
   get schema() {
+    const mark = new Mark()
     return {
       attrs: {
         level: {
@@ -34,6 +36,9 @@ export default class Heading extends Node {
         collapsed: {
           default: undefined,
         },
+        color:{
+          default:undefined
+        }
       },
       content: "inline*",
       group: "block",
@@ -80,6 +85,7 @@ export default class Heading extends Node {
             "span",
             {
               class: "heading-content",
+              style: `color: ${node.attrs.color}`,
             },
             0,
           ],

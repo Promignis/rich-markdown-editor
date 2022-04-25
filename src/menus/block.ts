@@ -15,6 +15,7 @@ import {
   WarningIcon,
   InfoIcon,
   LinkIcon,
+  ArrowIcon,
 } from "outline-icons";
 import { MenuItem } from "../types";
 import baseDictionary from "../dictionary";
@@ -145,6 +146,13 @@ export default function blockMenuItems(
       icon: StarredIcon,
       keywords: "container_notice card suggestion",
       attrs: { style: "tip" },
+    },
+    {
+      name: "color",
+      title: dictionary.color,
+      icon: ArrowIcon,
+      shortcut: `${mod} f`,
+      attrs: { markup: "##" },
     },
   ];
 }

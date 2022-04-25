@@ -217,7 +217,7 @@ export default class SelectionToolbar extends React.Component<Props> {
     if (isTextSelection && !selectionText) {
       return null;
     }
-
+    
     return (
       <Portal>
         <FloatingToolbar
@@ -236,7 +236,7 @@ export default class SelectionToolbar extends React.Component<Props> {
               {...rest}
             />
           ) : (
-            <ToolbarMenu items={items} {...rest} />
+            <ToolbarMenu items={items}  {...rest} />
           )}
         </FloatingToolbar>
       </Portal>

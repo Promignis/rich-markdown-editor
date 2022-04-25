@@ -17,6 +17,7 @@ export type MenuItem = {
   attrs?: Record<string, any>;
   visible?: boolean;
   active?: (state: EditorState) => boolean;
+  option?:boolean
 };
 
 export type EmbedDescriptor = MenuItem & {

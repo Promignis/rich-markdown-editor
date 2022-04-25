@@ -54,7 +54,6 @@ import Table from "./nodes/Table";
 import TableCell from "./nodes/TableCell";
 import TableHeadCell from "./nodes/TableHeadCell";
 import TableRow from "./nodes/TableRow";
-
 // marks
 import Bold from "./marks/Bold";
 import Code from "./marks/Code";
@@ -77,6 +76,7 @@ import SmartText from "./plugins/SmartText";
 import TrailingNode from "./plugins/TrailingNode";
 import PasteHandler from "./plugins/PasteHandler";
 import { PluginSimple } from "markdown-it";
+import Color from "./marks/Color";
 
 export { schema, parser, serializer, renderToHtml } from "./server";
 
@@ -108,6 +108,7 @@ export type Props = {
     | "embed"
     | "br"
     | "heading"
+    | "color"
     | "hr"
     | "image"
     | "list_item"
@@ -216,10 +217,8 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
   marks: { [name: string]: MarkSpec };
   commands: Record<string, any>;
   rulePlugins: PluginSimple[];
-
   componentDidMount() {
     this.init();
-
     if (this.props.scrollTo) {
       this.scrollToAnchor(this.props.scrollTo);
     }
@@ -237,6 +236,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     // Allow changes to the 'value' prop to update the editor from outside
     if (this.props.value && prevProps.value !== this.props.value) {
       const newState = this.createState(this.props.value);
+
       this.view.updateState(newState);
     }
 
@@ -289,6 +289,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     }
   }
 
+
   init() {
     this.extensions = this.createExtensions();
     this.nodes = this.createNodes();
@@ -330,6 +331,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
           new CheckboxList(),
           new CheckboxItem(),
           new BulletList(),
+          new Color(),
           new Embed({ embeds: this.props.embeds }),
           new ListItem(),
           new Notice({
@@ -502,7 +504,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 
   createState(value?: string) {
     const doc = this.createDocument(value || this.props.defaultValue);
-
     return EditorState.create({
       schema: this.schema,
       doc,
@@ -589,19 +590,19 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
       console.warn(`Attempted to scroll to invalid hash: ${hash}`, err);
     }
   }
-
+  
   calculateDir = () => {
     if (!this.element) return;
-
+    
     const isRTL =
-      this.props.dir === "rtl" ||
-      getComputedStyle(this.element).direction === "rtl";
-
+    this.props.dir === "rtl" ||
+    getComputedStyle(this.element).direction === "rtl";
+    
     if (this.state.isRTL !== isRTL) {
       this.setState({ isRTL });
     }
   };
-
+  
   value = (): string => {
     return this.serializer.serialize(this.view.state.doc);
   };
@@ -729,7 +730,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     }
   );
 
-  render() {
+  render() {    
     const {
       dir,
       readOnly,

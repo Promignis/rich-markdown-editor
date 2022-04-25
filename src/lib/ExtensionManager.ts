@@ -11,7 +11,6 @@ import { PluginSimple } from "markdown-it";
 
 export default class ExtensionManager {
   extensions: Extension[];
-
   constructor(extensions: Extension[] = [], editor?: Editor) {
     if (editor) {
       extensions.forEach(extension => {
@@ -66,7 +65,7 @@ export default class ExtensionManager {
     schema: any;
     rules?: Record<string, any>;
     plugins?: PluginSimple[];
-  }): MarkdownParser {
+  }): MarkdownParser {    
     const tokens: Record<string, any> = this.extensions
       .filter(
         extension => extension.type === "mark" || extension.type === "node"
@@ -158,7 +157,7 @@ export default class ExtensionManager {
     );
   }
 
-  commands({ schema, view }) {
+  commands({ schema, view }) {    
     return this.extensions
       .filter(extension => extension.commands)
       .reduce((allCommands, extension) => {
@@ -172,7 +171,7 @@ export default class ExtensionManager {
               }
             : {}),
         });
-
+        
         const apply = (callback, attrs) => {
           if (!view.editable) {
             return false;

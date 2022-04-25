@@ -11,6 +11,8 @@ import {
   TodoListIcon,
   InputIcon,
   HighlightIcon,
+  SmileyIcon,
+  ArrowIcon
 } from "outline-icons";
 import { isInTable } from "prosemirror-tables";
 import { EditorState } from "prosemirror-state";
@@ -29,7 +31,7 @@ export default function formattingMenuItems(
   const isTable = isInTable(state);
   const isList = isInList(state);
   const allowBlocks = !isTable && !isList;
-
+  
   return [
     {
       name: "placeholder",
@@ -76,7 +78,7 @@ export default function formattingMenuItems(
       tooltip: dictionary.heading,
       icon: Heading1Icon,
       active: isNodeActive(schema.nodes.heading, { level: 1 }),
-      attrs: { level: 1 },
+      attrs: { level: 1, color:'#fccb00' },
       visible: allowBlocks,
     },
     {
@@ -130,6 +132,14 @@ export default function formattingMenuItems(
       icon: LinkIcon,
       active: isMarkActive(schema.marks.link),
       attrs: { href: "" },
+    },
+    {
+      name: "color",
+      tooltip: dictionary.color,
+      icon: ArrowIcon,
+      active: isMarkActive(schema.marks.color),
+      attrs: { color: 'green' },
+      option: true
     },
   ];
 }

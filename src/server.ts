@@ -1,7 +1,6 @@
 import { Schema } from "prosemirror-model";
 import ExtensionManager from "./lib/ExtensionManager";
 import render from "./lib/renderToHtml";
-
 // nodes
 import Doc from "./nodes/Doc";
 import Text from "./nodes/Text";
@@ -35,6 +34,10 @@ import Link from "./marks/Link";
 import Strikethrough from "./marks/Strikethrough";
 import TemplatePlaceholder from "./marks/Placeholder";
 import Underline from "./marks/Underline";
+import Color from "./marks/Color";
+
+
+
 
 const extensions = new ExtensionManager([
   new Doc(),
@@ -59,6 +62,7 @@ const extensions = new ExtensionManager([
   new TableHeadCell(),
   new TableRow(),
   new Bold(),
+  new Color(),
   new Code(),
   new Highlight(),
   new Italic(),
