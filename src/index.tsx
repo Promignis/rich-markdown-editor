@@ -142,6 +142,7 @@ export type Props = {
   onChange?: (value: () => string) => void;
   onImageUploadStart?: () => void;
   onImageUploadStop?: () => void;
+  onImageRemove?: (string) => void;
   onCreateLink?: (title: string) => Promise<string>;
   onSearchLink?: (term: string) => Promise<SearchResult[]>;
   onClickLink: (href: string, event: MouseEvent) => void;
@@ -347,6 +348,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
             onImageUploadStart: this.props.onImageUploadStart,
             onImageUploadStop: this.props.onImageUploadStop,
             onShowToast: this.props.onShowToast,
+            onImageRemove: this.props.onImageRemove,
           }),
           new Table(),
           new TableCell({

@@ -8,6 +8,7 @@ import getDataTransferFiles from "../lib/getDataTransferFiles";
 import uploadPlaceholderPlugin from "../lib/uploadPlaceholder";
 import insertFiles from "../commands/insertFiles";
 import Node from "./Node";
+import backspaceDetectImage from "../commands/backspaceDetectImage";
 
 /**
  * Matches following attributes in Markdown-typed image: [, alt, src, class]
@@ -204,14 +205,29 @@ export default class Image extends Node {
     // Pressing Backspace in an an empty caption field should remove the entire
     // image, leaving an empty paragraph
     if (event.key === "Backspace" && event.target.innerText === "") {
+      
       const { view } = this.editor;
       const $pos = view.state.doc.resolve(getPos());
       const tr = view.state.tr.setSelection(new NodeSelection($pos));
+      
+      // send image remove callback
+      const imgNode = $pos.nodeAfter;
+      const { onImageRemove } = this.editor.props;
+      if(imgNode && imgNode.attrs && imgNode.attrs.src && onImageRemove) {
+        onImageRemove(imgNode.attrs.src)
+      }
+
       view.dispatch(tr.deleteSelection());
       view.focus();
       return;
     }
   };
+
+  keys({ type, schema }) {
+    return {
+      Backspace: backspaceDetectImage(type, this.editor.props.onImageRemove),
+    };
+  }
 
   handleBlur = ({ node, getPos }) => event => {
     const alt = event.target.innerText;
@@ -337,7 +353,12 @@ export default class Image extends Node {
         return true;
       },
       deleteImage: () => (state, dispatch) => {
+        const { onImageRemove } = this.editor.props;
+        const { attrs: { src } } = state.selection.node;
         dispatch(state.tr.deleteSelection());
+        if(src && onImageRemove) {
+          onImageRemove(src);
+        }
         return true;
       },
       alignRight: () => (state, dispatch) => {
@@ -367,6 +388,7 @@ export default class Image extends Node {
           onImageUploadStart,
           onImageUploadStop,
           onShowToast,
+          onImageRemove,
         } = this.editor.props;
 
         if (!uploadImage) {
@@ -388,6 +410,11 @@ export default class Image extends Node {
             replaceExisting: true,
           });
         };
+        // Send remove image
+        const { attrs: { src } } = state.selection.node
+        if(onImageRemove) {
+          onImageRemove(src);
+        }
         inputElement.click();
       },
       alignCenter: () => (state, dispatch) => {
