@@ -147,6 +147,7 @@ export type Props = {
   onClickLink: (href: string, event: MouseEvent) => void;
   onHoverLink?: (event: MouseEvent) => boolean;
   onClickHashtag?: (tag: string, event: MouseEvent) => void;
+  getImages?:(images: {src:string}[]) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
   embeds: EmbedDescriptor[];
   onShowToast?: (message: string, code: ToastType) => void;
@@ -718,6 +719,23 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     });
     return headings;
   };
+
+  // Get all the images
+  getImages = () => {
+    const images: { src: string }[] = [];
+
+    this.view.state.doc.forEach(node => {
+      // top level is a paragraph and just below is the image
+      if (node.type.name === "paragraph" && node.childCount == 1 && node.firstChild?.type.name == "image") {
+        const imageNode = node.firstChild;
+        images.push({
+          src: imageNode.attrs.src,
+        });
+      }
+    });
+
+    return images;
+  }
 
   theme = () => {
     return this.props.theme || (this.props.dark ? darkTheme : lightTheme);
