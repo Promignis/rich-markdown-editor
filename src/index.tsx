@@ -76,6 +76,7 @@ import Placeholder from "./plugins/Placeholder";
 import SmartText from "./plugins/SmartText";
 import TrailingNode from "./plugins/TrailingNode";
 import PasteHandler from "./plugins/PasteHandler";
+import MultiplayerExtension from "./plugins/MultiplayerExtension";
 import { PluginSimple } from "markdown-it";
 
 export { schema, parser, serializer, renderToHtml } from "./server";
@@ -154,6 +155,9 @@ export type Props = {
   tooltip: typeof React.Component | React.FC<any>;
   className?: string;
   style?: React.CSSProperties;
+  multiplayer?: boolean;
+  doc?: any;
+  provider?: any;
 };
 
 type State = {
@@ -403,6 +407,11 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
           new MaxLength({
             maxLength: this.props.maxLength,
           }),
+          ...(this.props.multiplayer? [
+            new MultiplayerExtension({
+            provider: this.props.provider,
+            document: this.props.doc,
+          })]: [])
         ].filter(extension => {
           // Optionaly disable extensions
           if (this.props.disableExtensions) {
