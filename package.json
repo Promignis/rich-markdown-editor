@@ -57,7 +57,9 @@
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0",
     "react-dom": "^16.0.0 || ^17.0.0",
-    "styled-components": "^5.0.0"
+    "styled-components": "^5.0.0",
+    "y-prosemirror": "^1.0.5",
+    "yjs": "^13.5.8"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -101,8 +103,6 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "jest": "^26.6.3",
     "prettier": "^1.19.1",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
     "source-map-loader": "^0.2.4",
     "styled-components": "^5.2.1",
     "ts-loader": "^6.2.1",

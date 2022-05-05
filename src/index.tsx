@@ -302,6 +302,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     this.plugins = this.createPlugins();
     this.rulePlugins = this.createRulePlugins();
     this.keymaps = this.createKeymaps();
+    // @ts-ignore
     this.serializer = this.createSerializer();
     this.parser = this.createParser();
     this.pasteParser = this.createPasteParser();
