@@ -15,8 +15,8 @@ import {
     }
   
     get plugins() {
-      const { provider, document: doc } = this.options;
-      const type = doc.get("default", Y.XmlFragment)
+      const { provider, document: doc, roomName } = this.options;
+      const type = doc.get(roomName, Y.XmlFragment);
 
       return [
         ySyncPlugin(type),
