@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import Mark from "./Mark";
 import underlinesRule from "../rules/underlines";
 export default class Underline extends Mark {
@@ -13,7 +12,7 @@ export default class Underline extends Mark {
             getAttrs: (value: any) => boolean;
             tag?: undefined;
         })[];
-        toDOM: () => import("react").ReactText[];
+        toDOM: () => (string | number)[];
     };
     get rulePlugins(): (typeof underlinesRule)[];
     inputRules({ type }: {

@@ -11,9 +11,9 @@ export declare type Props = {
     containerId?: string;
 };
 declare const _default: React.ForwardRefExoticComponent<{
-    icon?: typeof React.Component | React.FC<any> | undefined;
     disabled?: boolean | undefined;
     title: React.ReactNode;
+    icon?: typeof React.Component | React.FC<any> | undefined;
     onClick: () => void;
     selected: boolean;
     shortcut?: string | undefined;

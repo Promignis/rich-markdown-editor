@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { Transaction, EditorState, Plugin } from "prosemirror-state";
 import { DecorationSet } from "prosemirror-view";
 import Node from "./Node";
@@ -11,7 +10,7 @@ export default class ListItem extends Node {
         parseDOM: {
             tag: string;
         }[];
-        toDOM: () => import("react").ReactText[];
+        toDOM: () => (string | number)[];
     };
     get plugins(): Plugin<DecorationSet<any>, any>[];
     keys({ type }: {

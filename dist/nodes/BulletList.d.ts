@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import Node from "./Node";
 export default class BulletList extends Node {
     get name(): string;
@@ -8,7 +7,7 @@ export default class BulletList extends Node {
         parseDOM: {
             tag: string;
         }[];
-        toDOM: () => import("react").ReactText[];
+        toDOM: () => (string | number)[];
     };
     commands({ type, schema }: {
         type: any;

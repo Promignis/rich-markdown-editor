@@ -386,11 +386,13 @@ class RichMarkdownEditor extends React.PureComponent {
                 new MaxLength_1.default({
                     maxLength: this.props.maxLength,
                 }),
-                new MultiplayerExtension_1.default({
-                    provider: this.props.provider,
-                    document: this.props.doc,
-                    type: this.props.type,
-                })
+                ...(this.props.multiplayer ? [
+                    new MultiplayerExtension_1.default({
+                        provider: this.props.provider,
+                        document: this.props.doc,
+                        roomName: this.props.roomName
+                    })
+                ] : [])
             ].filter(extension => {
                 if (this.props.disableExtensions) {
                     return !this.props.disableExtensions.includes(extension.name);

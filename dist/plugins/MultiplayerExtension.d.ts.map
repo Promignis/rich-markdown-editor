@@ -1,1 +1,1 @@
-{"version":3,"file":"MultiplayerExtension.d.ts","sourceRoot":"","sources":["../../src/plugins/MultiplayerExtension.ts"],"names":[],"mappings":"AASE,OAAO,SAAS,MAAM,kBAAkB,CAAC;AAIzC,MAAM,CAAC,OAAO,OAAO,oBAAqB,SAAQ,SAAS;IACzD,IAAI,IAAI,WAEP;IAED,IAAI,OAAO,UAgBV;CACF"}
+{"version":3,"file":"MultiplayerExtension.d.ts","sourceRoot":"","sources":["../../src/plugins/MultiplayerExtension.ts"],"names":[],"mappings":"AASE,OAAO,SAAS,MAAM,kBAAkB,CAAC;AAEzC,MAAM,CAAC,OAAO,OAAO,oBAAqB,SAAQ,SAAS;IACzD,IAAI,IAAI,WAEP;IAED,IAAI,OAAO,UAcV;CACF"}

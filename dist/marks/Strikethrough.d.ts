@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import Mark from "./Mark";
 export default class Strikethrough extends Mark {
     get name(): string;
@@ -6,7 +5,7 @@ export default class Strikethrough extends Mark {
         parseDOM: {
             tag: string;
         }[];
-        toDOM: () => import("react").ReactText[];
+        toDOM: () => (string | number)[];
     };
     keys({ type }: {
         type: any;

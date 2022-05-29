@@ -11,6 +11,8 @@ import Tooltip from "./components/Tooltip";
 import Extension from "./lib/Extension";
 import ExtensionManager from "./lib/ExtensionManager";
 import ComponentView from "./lib/ComponentView";
+import * as Y from "yjs";
+import { WebsocketProvider } from "y-websocket";
 import { PluginSimple } from "markdown-it";
 export { schema, parser, serializer, renderToHtml } from "./server";
 export { default as Extension } from "./lib/Extension";
@@ -136,9 +138,9 @@ export declare type Props = {
     className?: string;
     style?: React.CSSProperties;
     multiplayer?: boolean;
-    doc?: any;
-    provider?: any;
-    type?: any;
+    doc?: Y.Doc;
+    provider?: WebsocketProvider;
+    roomName?: string;
 };
 declare type State = {
     isRTL: boolean;

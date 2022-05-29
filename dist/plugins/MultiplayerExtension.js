@@ -26,16 +26,13 @@ const y_prosemirror_1 = require("y-prosemirror");
 const prosemirror_keymap_1 = require("prosemirror-keymap");
 const Y = __importStar(require("yjs"));
 const Extension_1 = __importDefault(require("../lib/Extension"));
-const y_websocket_1 = require("y-websocket");
 class MultiplayerExtension extends Extension_1.default {
     get name() {
         return "multiplayer";
     }
     get plugins() {
-        let { provider, document: doc, type } = this.options;
-        doc = new Y.Doc();
-        provider = new y_websocket_1.WebsocketProvider('ws://localhost:1234', 'another', doc);
-        type = doc.get("another", Y.XmlFragment);
+        const { provider, document: doc, roomName } = this.options;
+        const type = doc.get(roomName, Y.XmlFragment);
         return [
             y_prosemirror_1.ySyncPlugin(type),
             y_prosemirror_1.yCursorPlugin(provider.awareness),

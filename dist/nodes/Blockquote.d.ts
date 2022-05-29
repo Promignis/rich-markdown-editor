@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import Node from "./Node";
 export default class Blockquote extends Node {
     get name(): string;
@@ -9,7 +8,7 @@ export default class Blockquote extends Node {
         parseDOM: {
             tag: string;
         }[];
-        toDOM: () => import("react").ReactText[];
+        toDOM: () => (string | number)[];
     };
     inputRules({ type }: {
         type: any;
