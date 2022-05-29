@@ -27,6 +27,10 @@ import ExtensionManager from "./lib/ExtensionManager";
 import ComponentView from "./lib/ComponentView";
 import headingToSlug from "./lib/headingToSlug";
 
+// multiplayer
+import * as Y from "yjs";
+import { WebsocketProvider } from "y-websocket";
+
 // styles
 import { StyledEditor } from "./styles/editor";
 
@@ -156,8 +160,9 @@ export type Props = {
   className?: string;
   style?: React.CSSProperties;
   multiplayer?: boolean;
-  doc?: any;
-  provider?: any;
+  doc?: Y.Doc;
+  provider?: WebsocketProvider;
+  roomName?: string;
 };
 
 type State = {
@@ -412,6 +417,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
             new MultiplayerExtension({
             provider: this.props.provider,
             document: this.props.doc,
+            roomName: this.props.roomName
           })]: [])
         ].filter(extension => {
           // Optionaly disable extensions
