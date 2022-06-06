@@ -8,6 +8,8 @@ import makeRules from "./markdown/rules";
 import Node from "../nodes/Node";
 import Mark from "../marks/Mark";
 import { PluginSimple } from "markdown-it";
+import setMark from "../commands/setMark";
+import removeMark from "../commands/removeMark";
 
 export default class ExtensionManager {
   extensions: Extension[];
@@ -161,7 +163,7 @@ export default class ExtensionManager {
     return this.extensions
       .filter(extension => extension.commands)
       .reduce((allCommands, extension) => {
-        const { name, type } = extension;
+        const { name, type } = extension;        
         const commands = {};
         const value = extension.commands({
           schema,
@@ -173,6 +175,16 @@ export default class ExtensionManager {
         });
         
         const apply = (callback, attrs) => {
+          // console.log(attrs);
+          if (attrs?.color) {
+            removeMark(schema.marks.color, attrs)(view.state, view.dispatch,);
+            setMark(schema.marks.color, attrs)(view.state, view.dispatch,);
+            return
+          } else if (attrs?.fontSize) {
+            removeMark(schema.marks.fonts, attrs)(view.state, view.dispatch,);
+            setMark(schema.marks.fonts, attrs)(view.state, view.dispatch,);
+            return
+          }
           if (!view.editable) {
             return false;
           }
@@ -196,7 +208,7 @@ export default class ExtensionManager {
         } else {
           handle(name, value);
         }
-
+        
         return {
           ...allCommands,
           ...commands,

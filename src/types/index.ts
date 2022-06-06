@@ -18,6 +18,7 @@ export type MenuItem = {
   visible?: boolean;
   active?: (state: EditorState) => boolean;
   option?:boolean
+  fontOps?:boolean
 };
 
 export type EmbedDescriptor = MenuItem & {

@@ -63,6 +63,8 @@ import Link from "./marks/Link";
 import Strikethrough from "./marks/Strikethrough";
 import TemplatePlaceholder from "./marks/Placeholder";
 import Underline from "./marks/Underline";
+import Color from "./marks/Color";
+import Fonts from "./marks/Fonts";
 
 // plugins
 import BlockMenuTrigger from "./plugins/BlockMenuTrigger";
@@ -76,7 +78,7 @@ import SmartText from "./plugins/SmartText";
 import TrailingNode from "./plugins/TrailingNode";
 import PasteHandler from "./plugins/PasteHandler";
 import { PluginSimple } from "markdown-it";
-import Color from "./marks/Color";
+
 
 export { schema, parser, serializer, renderToHtml } from "./server";
 
@@ -109,6 +111,7 @@ export type Props = {
     | "br"
     | "heading"
     | "color"
+    | "fonts"
     | "hr"
     | "image"
     | "list_item"
@@ -236,8 +239,9 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     // Allow changes to the 'value' prop to update the editor from outside
     if (this.props.value && prevProps.value !== this.props.value) {
       const newState = this.createState(this.props.value);
-
+            
       this.view.updateState(newState);
+      
     }
 
     // pass readOnly changes through to underlying editor instance
@@ -289,7 +293,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     }
   }
 
-
   init() {
     this.extensions = this.createExtensions();
     this.nodes = this.createNodes();
@@ -332,6 +335,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
           new CheckboxItem(),
           new BulletList(),
           new Color(),
+          new Fonts(),
           new Embed({ embeds: this.props.embeds }),
           new ListItem(),
           new Notice({

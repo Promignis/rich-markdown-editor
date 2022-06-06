@@ -12,7 +12,8 @@ import {
   InputIcon,
   HighlightIcon,
   SmileyIcon,
-  ArrowIcon
+  ArrowIcon,
+  PinIcon
 } from "outline-icons";
 import { isInTable } from "prosemirror-tables";
 import { EditorState } from "prosemirror-state";
@@ -21,7 +22,7 @@ import isMarkActive from "../queries/isMarkActive";
 import isNodeActive from "../queries/isNodeActive";
 import { MenuItem } from "../types";
 import baseDictionary from "../dictionary";
-
+import {FontOptions} from "../components/ToolbarMenu"
 export default function formattingMenuItems(
   state: EditorState,
   isTemplate: boolean,
@@ -78,7 +79,7 @@ export default function formattingMenuItems(
       tooltip: dictionary.heading,
       icon: Heading1Icon,
       active: isNodeActive(schema.nodes.heading, { level: 1 }),
-      attrs: { level: 1, color:'#fccb00' },
+      attrs: { level: 1},
       visible: allowBlocks,
     },
     {
@@ -134,6 +135,16 @@ export default function formattingMenuItems(
       attrs: { href: "" },
     },
     {
+      name: "separator",
+    },
+    {
+      name: "fonts",
+      tooltip: dictionary.fonts,
+      icon: FontOptions,
+      active: isMarkActive(schema.marks.color),
+      fontOps:true,
+    },
+    {
       name: "color",
       tooltip: dictionary.color,
       icon: ArrowIcon,
@@ -142,4 +153,6 @@ export default function formattingMenuItems(
       option: true
     },
   ];
+
+  
 }

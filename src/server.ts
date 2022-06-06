@@ -35,6 +35,7 @@ import Strikethrough from "./marks/Strikethrough";
 import TemplatePlaceholder from "./marks/Placeholder";
 import Underline from "./marks/Underline";
 import Color from "./marks/Color";
+import Fonts from "./marks/Fonts";
 
 
 
@@ -63,6 +64,7 @@ const extensions = new ExtensionManager([
   new TableRow(),
   new Bold(),
   new Color(),
+  new Fonts(),
   new Code(),
   new Highlight(),
   new Italic(),

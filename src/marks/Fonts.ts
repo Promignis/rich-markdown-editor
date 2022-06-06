@@ -1,34 +1,33 @@
-import { toggleMark, wrapIn } from "prosemirror-commands";
+import { toggleMark } from "prosemirror-commands";
 import markInputRule from "../lib/markInputRule";
 import Mark from "./Mark";
 import markRule from "../rules/mark";
 import getMarkAttrs from "../lib/getMarkAttrs";
-import toggleBlockType from "../commands/toggleBlockType";
+import { EditorView } from "prosemirror-view";
 
-export default class Color extends Mark { 
+export default class Fonts extends Mark  {
+ 
   get name() {
-    return "color";
+    return "fonts";
   }
   
-  get schema() {  
+  get schema() {
     return {
       attrs: {
-        color: {
+        fontSize: {
           default: ''
         }
       },
-      group: "block",
-      content: "inline*",
       parseDOM: [
         {
           tag: "span",
-          getAttrs: node => ({ color: node.getAttribute('color') })
+          getAttrs: node => ({ fontSize: node.getAttribute('font-size') })
         }
       ],
       toDOM: (node) => {
         return ["span", {
-          class: `class-color${node.attrs.color}`,
-          style: `color:${node.attrs.color}`
+          class: `class-font${node.attrs.fontSize}`,
+          style: `font-size:${node.attrs.fontSize}px`
         },
           0
         ]
@@ -41,20 +40,17 @@ export default class Color extends Mark {
   }
 
   keys({ type }) {    
-    return {
-      // "Mod-^": toggleMark(type),
-      // "Mod-f": toggleMark(type),
-    };
+    return {};
   }
 
   get rulePlugins() {
-    return [markRule({ delim: "##", mark: "color" })];
+    return [markRule({ delim: "^^", mark: "fonts" })];
   }
 
   get toMarkdown() {
     return {
-      open: "##",
-      close: "##",
+      open: "^^",
+      close: "^^",
       mixable: true,
       expelEnclosingWhitespace: true,
       escape:true
@@ -62,6 +58,7 @@ export default class Color extends Mark {
   }
 
   parseMarkdown() {
-    return { mark: "color" };
+    return { mark: "fonts" };
   }
+
 }

@@ -60,6 +60,7 @@ export const base = {
   warning: "Warning",
   warningNotice: "Warning notice",
   color:"color",
+  fonts:"set font-size"
 };
 
 export default base;

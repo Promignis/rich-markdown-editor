@@ -154,5 +154,12 @@ export default function blockMenuItems(
       shortcut: `${mod} f`,
       attrs: { markup: "##" },
     },
+    {
+      name: "fonts",
+      title: dictionary.fonts,
+      icon: ArrowIcon,
+      shortcut: `${mod} f`,
+      attrs: { markup: "^^" },
+    },
   ];
 }

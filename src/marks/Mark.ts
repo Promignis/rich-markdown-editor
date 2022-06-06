@@ -1,4 +1,5 @@
-import { toggleMark } from "prosemirror-commands";
+import { toggleMark, wrapIn } from "prosemirror-commands";
+import setMark from "../commands/setMark";
 import Extension from "../lib/Extension";
 
 export default abstract class Mark extends Extension {
@@ -20,7 +21,13 @@ export default abstract class Mark extends Extension {
     return {};
   }
 
-  commands({ type }) {
-    return () => toggleMark(type);
+  commands({ type, schema }) {
+    if (type.name == 'color') {
+      return () => schema
+    } else if (type.name == 'fonts') {
+      return () => schema
+    } else {
+      return () => toggleMark(type);
+    }
   }
 }
