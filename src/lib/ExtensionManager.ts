@@ -55,7 +55,7 @@ export default class ExtensionManager {
         }),
         {}
       );
-
+        // console.log(marks);      
     return new MarkdownSerializer(nodes, marks);
   }
 
@@ -175,14 +175,16 @@ export default class ExtensionManager {
         });
         
         const apply = (callback, attrs) => {
-          // console.log(attrs);
+          // console.log(attrs);  
+          // const ab = schema.markFromJSON(schema.marks.color)                  
           if (attrs?.color) {
-            removeMark(schema.marks.color, attrs)(view.state, view.dispatch,);
-            setMark(schema.marks.color, attrs)(view.state, view.dispatch,);
+            // view.state.tr.addStoredMark(schema.marks.color.create(attrs))
+            removeMark(schema.marks.color, attrs)(view.state, view.dispatch);
+            setMark(schema.marks.color, attrs)(view.state, view.dispatch);
             return
           } else if (attrs?.fontSize) {
-            removeMark(schema.marks.fonts, attrs)(view.state, view.dispatch,);
-            setMark(schema.marks.fonts, attrs)(view.state, view.dispatch,);
+            removeMark(schema.marks.fonts, attrs)(view.state, view.dispatch);
+            setMark(schema.marks.fonts, attrs)(view.state, view.dispatch);
             return
           }
           if (!view.editable) {

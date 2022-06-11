@@ -25,6 +25,9 @@ const SelectMenu = styled.select`
   position: relative;
   right: 8px;
   cursor: pointer;
+  background: none;
+  background-color: #2f3336;
+  color: white;
 `;
 
 const ColorBtn = styled.button`
@@ -106,14 +109,12 @@ export const FontOptions:React.FC<any> = ({ setFont }) => {
   const fontSizes = [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 38, 46, 54, 62, 72]
   return (
     <>
-      <div >
-        <form>
+      <div>
           <SelectMenu  name="fonts" onChange={(e) => setFont({ fontSize: e.target.value })}>
             {fontSizes.map(val => {
               return (<option value={val}>{val}</option>)
             })}
           </SelectMenu>
-        </form>
       </div>
     </>
   )

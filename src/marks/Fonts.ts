@@ -26,7 +26,7 @@ export default class Fonts extends Mark  {
       ],
       toDOM: (node) => {
         return ["span", {
-          class: `class-font${node.attrs.fontSize}`,
+          class: `custom-font ${node.attrs.fontSize}`,
           style: `font-size:${node.attrs.fontSize}px`
         },
           0

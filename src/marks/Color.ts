@@ -2,19 +2,40 @@ import { toggleMark, wrapIn } from "prosemirror-commands";
 import markInputRule from "../lib/markInputRule";
 import Mark from "./Mark";
 import markRule from "../rules/mark";
-import getMarkAttrs from "../lib/getMarkAttrs";
-import toggleBlockType from "../commands/toggleBlockType";
+import ExtensionManager from "../lib/ExtensionManager";
 
+var color:string
 export default class Color extends Mark { 
+  delim: string
+  ext: ExtensionManager
   get name() {
     return "color";
   }
-  
-  get schema() {  
+
+  getColor(abc) {
+    if (abc) {
+      color = abc
+      const aa = {
+        color: {
+          open: `##-${color}-`,
+          close: "##",
+          mixable: true,
+          expelEnclosingWhitespace: true,
+          escape: true
+        }
+      }
+      return
+      // return new MarkdownSerializer({},aa)
+      // return this.ext?.serializer()
+    } else return
+  }
+
+  get schema() {
+
     return {
       attrs: {
         color: {
-          default: ''
+          default: null
         }
       },
       group: "block",
@@ -26,9 +47,11 @@ export default class Color extends Mark {
         }
       ],
       toDOM: (node) => {
+        // this.getColor(node.attrs.color)
         return ["span", {
-          class: `class-color${node.attrs.color}`,
-          style: `color:${node.attrs.color}`
+          class: `custom-color`,
+          style: `color:${node.attrs.color}`,
+          color: `${node.attrs.color}`
         },
           0
         ]
@@ -41,18 +64,17 @@ export default class Color extends Mark {
   }
 
   keys({ type }) {    
-    return {
-      // "Mod-^": toggleMark(type),
-      // "Mod-f": toggleMark(type),
-    };
+    return {};
   }
 
   get rulePlugins() {
-    return [markRule({ delim: "##", mark: "color" })];
+    return [markRule({ delim: '##', mark: "color" })];
   }
+
 
   get toMarkdown() {
     return {
+      // open: `##-${color}-`,
       open: "##",
       close: "##",
       mixable: true,
@@ -61,7 +83,14 @@ export default class Color extends Mark {
     };
   }
 
+  
+
   parseMarkdown() {
-    return { mark: "color" };
+    return {
+      mark: "color",
+      getAttrs: token => ({
+        color: token.attrGet("color"),
+      }),
+    };;
   }
 }
