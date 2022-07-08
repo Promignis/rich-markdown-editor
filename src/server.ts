@@ -7,6 +7,7 @@ import Doc from "./nodes/Doc";
 import Text from "./nodes/Text";
 import Blockquote from "./nodes/Blockquote";
 import Emoji from "./nodes/Emoji";
+import Mention from "./nodes/Mention";
 import BulletList from "./nodes/BulletList";
 import CodeBlock from "./nodes/CodeBlock";
 import CodeFence from "./nodes/CodeFence";
@@ -43,6 +44,7 @@ const extensions = new ExtensionManager([
   new Paragraph(),
   new Blockquote(),
   new Emoji(),
+  new Mention(),
   new BulletList(),
   new CodeBlock(),
   new CodeFence(),

@@ -40,6 +40,7 @@ import CodeBlock from "./nodes/CodeBlock";
 import CodeFence from "./nodes/CodeFence";
 import CheckboxList from "./nodes/CheckboxList";
 import Emoji from "./nodes/Emoji";
+import Mention from "./nodes/Mention";
 import CheckboxItem from "./nodes/CheckboxItem";
 import Embed from "./nodes/Embed";
 import HardBreak from "./nodes/HardBreak";
@@ -68,6 +69,7 @@ import Underline from "./marks/Underline";
 // plugins
 import BlockMenuTrigger from "./plugins/BlockMenuTrigger";
 import EmojiTrigger from "./plugins/EmojiTrigger";
+import Mentions from "./plugins/Mentions";
 import Folding from "./plugins/Folding";
 import History from "./plugins/History";
 import Keys from "./plugins/Keys";
@@ -77,6 +79,7 @@ import SmartText from "./plugins/SmartText";
 import TrailingNode from "./plugins/TrailingNode";
 import PasteHandler from "./plugins/PasteHandler";
 import { PluginSimple } from "markdown-it";
+import MentionMenu from "./components/MentionMenu";
 
 export { schema, parser, serializer, renderToHtml } from "./server";
 
@@ -164,6 +167,7 @@ type State = {
   linkMenuOpen: boolean;
   blockMenuSearch: string;
   emojiMenuOpen: boolean;
+  mentionsOpen: boolean
 };
 
 type Step = {
@@ -197,6 +201,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     linkMenuOpen: false,
     blockMenuSearch: "",
     emojiMenuOpen: false,
+    mentionsOpen: false
   };
 
   isBlurred: boolean;
@@ -219,6 +224,8 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
   rulePlugins: PluginSimple[];
 
   componentDidMount() {
+    console.log('hellooo');
+    
     this.init();
 
     if (this.props.scrollTo) {
@@ -327,6 +334,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
             onShowToast: this.props.onShowToast,
           }),
           new Emoji(),
+          new Mention(),
           new Text(),
           new CheckboxList(),
           new CheckboxItem(),
@@ -395,6 +403,14 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
             },
             onClose: () => {
               this.setState({ emojiMenuOpen: false });
+            },
+          }),
+          new Mentions({
+            onOpen: (search: string) => {
+              this.setState({ mentionsOpen: true, blockMenuSearch: search });
+            },
+            onClose: () => {
+              this.setState({ mentionsOpen: false });
             },
           }),
           new Placeholder({
@@ -813,6 +829,16 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
                   isActive={this.state.emojiMenuOpen}
                   search={this.state.blockMenuSearch}
                   onClose={() => this.setState({ emojiMenuOpen: false })}
+                />
+                <MentionMenu
+                  view={this.view}
+                  commands={this.commands}
+                  dictionary={dictionary}
+                  rtl={isRTL}
+                  onCreateLink={this.props.onCreateLink}
+                  isActive={this.state.mentionsOpen}
+                  search={this.state.blockMenuSearch}
+                  onClose={() => this.setState({ mentionsOpen: false })}
                 />
                 <BlockMenu
                   view={this.view}

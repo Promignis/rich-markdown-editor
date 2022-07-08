@@ -11,6 +11,7 @@ import getDataTransferFiles from "../lib/getDataTransferFiles";
 import filterExcessSeparators from "../lib/filterExcessSeparators";
 import insertFiles from "../commands/insertFiles";
 import baseDictionary from "../dictionary";
+import createAndInsertLink from "../commands/createAndInsertLink";
 
 const SSR = typeof window === "undefined";
 
@@ -29,6 +30,7 @@ export type Props<T extends MenuItem = MenuItem> = {
   view: EditorView;
   search: string;
   uploadImage?: (file: File) => Promise<string>;
+  onCreateLink?:(title: string) => Promise<string>;
   onImageUploadStart?: () => void;
   onImageUploadStop?: () => void;
   onShowToast?: (message: string, id: string) => void;
@@ -173,7 +175,46 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
     }
   };
 
+  handleOnCreateLink = async (title: string) => {
+    const { dictionary, onCreateLink, view, onClose, onShowToast } = this.props;
+
+    onClose();
+    this.props.view.focus();
+
+    if (!onCreateLink) {
+      return;
+    }
+
+    const { dispatch, state } = view;
+    const { from, to } = state.selection;
+    if (from !== to) {
+      // selection must be collapsed
+      return;
+    }
+
+    const href = `creating#${title}…`;
+
+    // Insert a placeholder link
+    dispatch(
+      view.state.tr
+        .insertText(title, from, to)
+        .addMark(
+          from,
+          to + title.length,
+          state.schema.marks.link.create({ href })
+        )
+    );
+
+    createAndInsertLink(view, title, href, {
+      onCreateLink,
+      onShowToast,
+      dictionary,
+    });
+  };
+
   insertItem = item => {
+    console.log(item.name);
+    
     switch (item.name) {
       case "image":
         return this.triggerImagePick();
@@ -185,6 +226,8 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
         this.props.onLinkToolbarOpen?.();
         return;
       }
+      // case 'mention' :
+      //   return this.handleOnCreateLink(item.title)
       default:
         this.insertBlock(item);
     }
@@ -302,7 +345,17 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
     this.clearSearch();
 
     const command = this.props.commands[item.name];
-
+    // if(item.name == 'mention') {
+    //     const { state, dispatch } = this.props.view;    
+    //     dispatch(
+    //       state.tr.insertText(
+    //         item.title,
+    //         state.selection.$from.pos - (this.props.search ?? "").length - 1,
+    //         state.selection.to
+    //       )
+    //     );
+    // }
+    
     if (command) {
       command(item.attrs);
     } else {
