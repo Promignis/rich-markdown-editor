@@ -345,6 +345,8 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
     this.clearSearch();
 
     const command = this.props.commands[item.name];
+    console.log(item,'insertBlock');
+    
     // if(item.name == 'mention') {
     //     const { state, dispatch } = this.props.view;    
     //     dispatch(

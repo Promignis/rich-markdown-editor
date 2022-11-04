@@ -8,34 +8,40 @@ import MentionMenuItem from "./MentionMenuItem";
 type Emoji = {
   name: string;
   title: string;
-//   emoji: string;
+  //   emoji: string;
   email: string;
   attrs: { markup: string; "data-name": string };
 };
 
 const people = [{
-    name: {
-      firstName: 'Jesse',
-      lastName: 'Bowen',
-    },
-    state: 'Seattle',  
+  name: {
+    firstName: 'Jesse',
+    lastName: 'Bowen',
   },
-  {
-    name: {
-      firstName: 'juniad',
-      lastName: 'Bowen',
-    },
-    state: 'junaid',
-    
+  state: 'Seattle',
+},
+{
+  name: {
+    firstName: 'juniad',
+    lastName: 'Bowen',
   },
-  {
-    name: {
-      firstName: 'juniad',
-      lastName: 'adam',
-    },
-    state: 'adam',
-    
-  }
+  state: 'junaid',
+
+},
+{
+  name: {
+    firstName: 'juniad',
+    lastName: 'adam',
+  },
+  state: 'adam',
+},
+{
+  name: {
+    firstName: 'no-name',
+    lastName: 'yes-name',
+  },
+  state: 'name',
+}
 ];
 
 const searcher = new FuzzySearch(people, ['name.firstName', 'state'], {
@@ -51,7 +57,7 @@ class MentionMenu extends React.Component<
     | "onLinkToolbarOpen"
     | "embeds"
     | "onClearSearch"
-  > 
+  >
 > {
   get items(): Emoji[] {
     const { search = "" } = this.props;
@@ -85,7 +91,7 @@ class MentionMenu extends React.Component<
     );
   };
 
-  
+
   render() {
     return (
       <CommandMenu
@@ -100,7 +106,7 @@ class MentionMenu extends React.Component<
               onClick={options.onClick}
               selected={options.selected}
               title={item.title}
-            //   emoji={item.emoji}
+              //   emoji={item.emoji}
               containerId="emoji-menu-container"
             />
           );

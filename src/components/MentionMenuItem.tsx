@@ -6,6 +6,7 @@ const Emoji = styled.span`
   font-size: 16px;
 `;
 
+
 const MentionName = ({
   title,
 }: {
@@ -24,11 +25,15 @@ type EmojiMenuItemProps = Omit<BlockMenuItemProps, "shortcut" | "theme"> & {
   // emoji: string;
 };
 
+const Mentions = styled(MentionName)({
+  cursor: 'pointer'
+})
+
 export default function MentionMenuItem(props: EmojiMenuItemProps) {
   return (
     <BlockMenuItem
       {...props}
-      title={<MentionName title={props.title} />}
+      title={<Mentions title={props.title} />}
     />
   );
 }

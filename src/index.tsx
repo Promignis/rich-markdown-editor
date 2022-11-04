@@ -69,7 +69,7 @@ import Underline from "./marks/Underline";
 // plugins
 import BlockMenuTrigger from "./plugins/BlockMenuTrigger";
 import EmojiTrigger from "./plugins/EmojiTrigger";
-import Mentions from "./plugins/Mentions";
+import MentionsTrigger from "./plugins/Mentions";
 import Folding from "./plugins/Folding";
 import History from "./plugins/History";
 import Keys from "./plugins/Keys";
@@ -405,7 +405,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
               this.setState({ emojiMenuOpen: false });
             },
           }),
-          new Mentions({
+          new MentionsTrigger({
             onOpen: (search: string) => {
               this.setState({ mentionsOpen: true, blockMenuSearch: search });
             },

@@ -7,9 +7,9 @@ import { run } from "./BlockMenuTrigger";
 const OPEN_REGEX = /(?:^|\s)@([0-9a-zA-Z_+-]+)?$/;
 const CLOSE_REGEX = /(?:^|\s)@(([0-9a-zA-Z_+-]*\s+)|(\s+[0-9a-zA-Z_+-]+)|[^0-9a-zA-Z_+-]+)$/;
 
-export default class Mentions extends Extension {
+export default class MentionsTrigger extends Extension {
   get name() {
-    return "mentions";
+    return "mentionsMenu";
   }
 
   get plugins() {
