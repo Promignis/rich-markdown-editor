@@ -8,6 +8,7 @@ import tablesRule from "../rules/tables";
 import noticesRule from "../rules/notices";
 import underlinesRule from "../rules/underlines";
 import emojiRule from "../rules/emoji";
+import mention from "../rules/mentions";
 
 const defaultRules = [
   embedsRule,
@@ -15,6 +16,7 @@ const defaultRules = [
   checkboxRule,
   markRule({ delim: "==", mark: "highlight" }),
   markRule({ delim: "!!", mark: "placeholder" }),
+  mention,
   underlinesRule,
   tablesRule,
   noticesRule,

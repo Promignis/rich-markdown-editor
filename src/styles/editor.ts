@@ -237,7 +237,15 @@ export const StyledEditor = styled("div")<{
       opacity: 1;
     }
   }
-
+  
+  .mention {
+    background: #e8f5fa;
+    color: #1264a3;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0px 2px;
+  }
+  
   .heading-actions {
     opacity: 0;
     background: ${props => props.theme.background};
